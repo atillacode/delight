@@ -33,9 +33,9 @@ p, h1, h2, ul, address { margin: 0; font-size: inherit; }
 .top { font-size: var(--size); line-height: 1.2; font-weight: 600; color: var(--ink); }
 .top h1, .top a { font: inherit; }
 
-/* The home page's opening: larger, all of it in the darkest grey, its last sentence a paragraph of its own. The first
-   three each get a line of their own only while every one of them fits on one. Narrower than that, they run on as
-   one paragraph, as a forced break after a wrapped sentence would leave a short line and a gap. No line ends with a
+/* The home page's opening: larger, all of it in the darkest grey. First, who makes the apps and for whom, a paragraph
+   of its own. The next three sentences each get a line of their own only while every one of them fits on one.
+   Narrower than that, they run on as one paragraph, as a forced break after a wrapped sentence would leave a short line and a gap. No line ends with a
    word alone. The longest sentence is 29.7 em wide: 595 points at the opening's smallest size, 20 points, where the
    page can get too narrow; at any larger size the page is wide enough for it anyway. (In points rather than em, as
    browsers have read em in a container query differently.) The opening spans the page's width, so the paragraph's
