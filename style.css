@@ -1,0 +1,105 @@
+/* delight.software's look: grey text on white, nothing else. Light only, on purpose: no dark mode. The darkest
+   colour is a grey so dark it reads as black, and no true black appears anywhere.
+   Two type sizes: the home page's opening, larger, and 17 points, as in Apple's own body text, for everything else;
+   within a size, what matters more is set apart by weight and by how dark its grey is. Only the footer is smaller. */
+:root {
+  --paper: #ffffff;
+  --ink: #1d1d1f;
+  --quiet: #5f5f63;
+  --faint: #86868b;
+  --size: 17px;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+/* White past the page's ends too, when it's pulled (rubber-band scrolling). */
+html { -webkit-text-size-adjust: 100%; background: var(--paper); color: var(--ink); }
+/* Everything on the page shares one left edge: the 16-point gutter on a phone, set in a little further on wider
+   screens, and the right edge mirrors it, for the footer's links. The tops of delight.software's letters sit twice
+   as far from the top as the footer's baseline sits from the bottom: 64 points and 32, measured on the letters, as
+   the eye does, not on their boxes. */
+body {
+  margin: 0; min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: max(61px, env(safe-area-inset-top)) calc(max(16px, env(safe-area-inset-right)) + clamp(0px, 5vw - 16px, 80px))
+           max(24px, env(safe-area-inset-bottom)) calc(max(16px, env(safe-area-inset-left)) + clamp(0px, 5vw - 16px, 80px));
+  background: var(--paper); color: var(--quiet); text-align: left;
+  font-family: var(--font); font-size: var(--size); line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+p, h1, h2, ul, address { margin: 0; font-size: inherit; }
+
+/* delight.software, at the very top left. On the legal pages it's the way home. */
+.top { font-size: var(--size); line-height: 1.2; font-weight: 600; color: var(--ink); }
+.top h1, .top a { font: inherit; }
+
+/* The home page's opening: larger, all of it in the darkest grey, its last sentence a paragraph of its own. The first
+   three each get a line of their own only while every one of them fits on one. Narrower than that, they run on as
+   one paragraph, as a forced break after a wrapped sentence would leave a short line and a gap. No line ends with a
+   word alone. The longest sentence is 29.7 em wide: 595 points at the opening's smallest size, 20 points, where the
+   page can get too narrow; at any larger size the page is wide enough for it anyway. (In points rather than em, as
+   browsers have read em in a container query differently.) The opening spans the page's width, so the paragraph's
+   width comes from the page, not from its text, as a container query needs. Change the sentences or the size, and
+   measure again. */
+.intro { align-self: stretch; margin-top: clamp(48px, 12vh, 128px); }
+.intro > p {
+  max-width: 30em;
+  font-size: clamp(20px, 2.5vw, 24px); line-height: 1.4; letter-spacing: -0.01em;
+  color: var(--ink); text-wrap: pretty;
+}
+.intro > p + p { margin-top: 1em; }
+.intro .sentences { container-type: inline-size; }
+@container (min-width: 595px) {
+  .intro .sentences > span { display: block; }
+}
+
+/* The apps. Each is its name, in the darkest grey and bolder, with what it is under it. The name's link reaches over
+   the whole entry, so pointing anywhere on it underlines the name, and a click anywhere opens the app's site. */
+.apps { display: grid; gap: 22px; max-width: 40rem; margin-top: 56px; padding: 0; list-style: none; }
+.apps li { position: relative; }
+.apps a { font-weight: 600; }
+.apps a::after { content: ""; position: absolute; inset: -6px -10px; border-radius: 12px; }
+.apps p { text-wrap: pretty; }
+
+/* The footer, smaller than the rest, across the page's width: who made it on the left, the legal pages in the
+   lightest grey on the right. Where the line is too short for both, the legal pages go under it, on the left. */
+.site-foot {
+  align-self: stretch; margin-top: auto; padding-top: 72px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px;
+  font-size: 13px; line-height: 1.4;
+}
+.site-foot .credit { margin-right: auto; }
+.site-foot .legal { display: flex; gap: 16px; }
+.site-foot .legal a { color: var(--faint); font-weight: 400; transition: color 0.1s ease, --underline 0.1s ease; }
+.site-foot .legal a:is(:hover, :focus-visible) { color: var(--quiet); --underline: var(--quiet); }
+
+/* The legal pages: the text, starting as far down as the home page's, its headings in the darkest grey. */
+.doc { max-width: 40rem; margin-top: clamp(48px, 12vh, 128px); }
+.doc h1, .doc h2 { font-weight: 600; color: var(--ink); }
+.doc h2 { margin-top: 2em; }
+.doc .updated { color: var(--faint); }
+.doc p, .doc address, .doc ul { margin-top: 0.6em; text-wrap: pretty; }
+.doc .updated + p { margin-top: 1.6em; }
+.doc address { font-style: normal; }
+.doc ul { padding-left: 1.2em; }
+.doc li + li { margin-top: 0.3em; }
+
+/* Links, as on sailmode.app: the dark grey, a little bolder, and pointed at, a 1.5-point line under them with round
+   ends, further below the letters than a plain underline, clear of g, p and y. It's drawn as the link's background,
+   a bar with a dot at each end, so a link that wraps gets it on every line, and it fades in over a tenth of a second:
+   its colour is a registered property, which the browser can fade where a background alone it can't. */
+@property --underline { syntax: "<color>"; inherits: false; initial-value: transparent; }
+a {
+  color: var(--ink); font-weight: 500; text-decoration: none; padding-bottom: 3px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  background-image:
+    radial-gradient(circle closest-side, var(--underline) 92%, transparent),
+    radial-gradient(circle closest-side, var(--underline) 92%, transparent),
+    linear-gradient(var(--underline), var(--underline));
+  background-repeat: no-repeat;
+  background-position: left bottom, right bottom, center bottom;
+  background-size: 1.5px 1.5px, 1.5px 1.5px, calc(100% - 1.5px) 1.5px;
+  transition: --underline 0.1s ease;
+}
+a:is(:hover, :focus-visible) { --underline: var(--ink); }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
