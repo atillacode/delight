@@ -33,23 +33,24 @@ p, h1, h2, ul, address { margin: 0; font-size: inherit; }
 .top { font-size: var(--size); line-height: 1.2; font-weight: 600; color: var(--ink); }
 .top h1, .top a { font: inherit; }
 
-/* The home page's opening: larger, all of it in the darkest grey. First, who makes the apps and for whom, a paragraph
-   of its own. The next three sentences each get a line of their own only while every one of them fits on one.
-   Narrower than that, they run on as one paragraph, as a forced break after a wrapped sentence would leave a short line and a gap. No line ends with a
-   word alone. The longest sentence is 29.7 em wide: 595 points at the opening's smallest size, 20 points, where the
-   page can get too narrow; at any larger size the page is wide enough for it anyway. (In points rather than em, as
-   browsers have read em in a container query differently.) The opening spans the page's width, so the paragraph's
-   width comes from the page, not from its text, as a container query needs. Change the sentences or the size, and
-   measure again. */
+/* The home page's opening: larger, all of it in the darkest grey. First, who makes the apps, a paragraph of its own.
+   The sentences after it each get a line of their own only while every one of them fits on one. Narrower than that,
+   they run on as one paragraph, as a forced break after a wrapped sentence would leave a short line and a gap. No
+   line ends with a word alone. The longest sentence is 29.9 em wide: 598 points at the opening's smallest size, 20
+   points, where the page can get too narrow; at any larger size the page is wide enough for it anyway. The paragraph
+   may be 31 em wide and the lines start at 610 points, which leaves room should a browser set the type a little
+   wider. (In points rather than em, as browsers have read em in a container query differently.) The opening spans
+   the page's width, so the paragraph's width comes from the page, not from its text, as a container query needs.
+   Change the sentences or the size, and measure again. */
 .intro { align-self: stretch; margin-top: clamp(48px, 12vh, 128px); }
 .intro > p {
-  max-width: 30em;
+  max-width: 31em;
   font-size: clamp(20px, 2.5vw, 24px); line-height: 1.4; letter-spacing: -0.01em;
   color: var(--ink); text-wrap: pretty;
 }
 .intro > p + p { margin-top: 1em; }
 .intro .sentences { container-type: inline-size; }
-@container (min-width: 595px) {
+@container (min-width: 610px) {
   .intro .sentences > span { display: block; }
 }
 
