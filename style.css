@@ -54,12 +54,43 @@ p, h1, h2, ul, address { margin: 0; font-size: inherit; }
   .intro .sentences > span { display: block; }
 }
 
-/* The apps. Each is its name, in the darkest grey and bolder, with what it is under it. The name's link reaches over
-   the whole entry, so pointing anywhere on it underlines the name, and a click anywhere opens the app's site. */
+/* The apps. Each is its name, in the darkest grey and bolder, a link to the app's site, with what it is under it.
+   Only the name answers the pointer and a click; what's under it is plain text.
+   Pointed at, the name is underlined at once, as every link is (below). Then an arrow pointing up and out, to say
+   the link leaves this site, fades in after the name, sliding in from the left, and the underline stretches on
+   under it to its end, as far as the arrow and no further, its far dot riding the line's end. The arrow's room,
+   0.9 em with the gap before it, is kept at all times, so nothing moves. The arrow is drawn in the name's colour
+   through an outline of it, with the underline's line weight. Leaving, both fade out at once, as the other links
+   do. Where motion is turned down, nothing slides or stretches: both only fade. */
+@property --draw { syntax: "<number>"; inherits: false; initial-value: 0; }
 .apps { display: grid; gap: 22px; max-width: 40rem; margin-top: 56px; padding: 0; list-style: none; }
-.apps li { position: relative; }
-.apps a { font-weight: 600; }
-.apps a::after { content: ""; position: absolute; inset: -6px -10px; border-radius: 12px; }
+.apps a {
+  font-weight: 600;
+  background-position: left bottom, calc(100% - 0.9em * (1 - var(--draw))) bottom, 0.75px bottom;
+  background-size: 1.5px 1.5px, 1.5px 1.5px, calc(100% - 1.5px - 0.9em * (1 - var(--draw))) 1.5px;
+  transition: --underline 0.1s ease, --draw 0s 0.1s;
+}
+.apps a::after {
+  content: ""; display: inline-block; width: 0.65em; height: 0.65em;
+  margin-left: 0.25em; vertical-align: 0.12em;
+  background: currentColor;
+  -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat;
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.75 8.25 8.25 1.75M3.25 1.75h5v5'/%3E%3C/svg%3E");
+  opacity: 0; transform: translateX(-0.35em);
+  transition: opacity 0.1s ease, transform 0s 0.1s;
+}
+.apps a:is(:hover, :focus-visible) {
+  --draw: 1;
+  transition: --underline 0.1s ease, --draw 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.apps a:is(:hover, :focus-visible)::after {
+  opacity: 1; transform: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .apps a { --draw: 1; }
+  .apps a::after { transform: none; }
+}
 .apps p { text-wrap: pretty; }
 
 /* The footer, smaller than the rest, across the page's width: who made it on the left, the legal pages in the
