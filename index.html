@@ -12,7 +12,17 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://delight.software/">
 <meta property="og:site_name" content="delight.software">
-<link rel="stylesheet" href="style.css?v=e9bf4e6df3">
+<!-- The link preview card, drawn by Website/social-image.swift: one for every app, X included, as its text ends above
+     the corner where X lays its title. -->
+<meta property="og:image" content="https://delight.software/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="delight.software. Beautiful, delightful and purposeful software for iPhone, iPad and Mac.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="delight.software">
+<meta name="twitter:image" content="https://delight.software/social.png">
+<meta name="twitter:image:alt" content="delight.software. Beautiful, delightful and purposeful software for iPhone, iPad and Mac.">
+<link rel="stylesheet" href="style.css?v=92b12a94df">
 </head>
 <body>
 <header class="top"><h1>delight.software</h1></header>
@@ -22,7 +32,8 @@
   <p class="sentences"><span>Beautiful, delightful and purposeful software for iPhone, iPad and Mac.</span>
      <span>I&nbsp;obsess over details most people won’t consciously notice.</span>
      <span>But&nbsp;they’ll&nbsp;feel&nbsp;them.</span></p>
-  <!-- The apps: each one’s name, a link to its own site, with what it is under it. -->
+  <!-- The apps: each one’s name, a link to its own site, with what it is under it. A sentence in a span starts a line
+       of its own where the whole doesn’t fit on one (style.css). -->
   <ul class="apps">
     <li>
       <a href="https://bauhausclock.com">Bauhaus Clock</a>
@@ -30,7 +41,7 @@
     </li>
     <li>
       <a href="https://licht.camera">Licht Cinema Camera</a>
-      <p>Your iPhone’s last video camera. Cinema in one press.</p>
+      <p>Your iPhone’s last video camera. <span>Cinema in one press.</span></p>
     </li>
     <li>
       <a href="https://sailmode.app">Sailmode</a>
@@ -39,7 +50,7 @@
   </ul>
 </main>
 <footer class="site-foot">
-  <p class="credit">Made with care by <a href="https://x.com/_atilla1">Atilla</a></p>
+  <p class="credit">Made with care by <a href="https://atillataskiran.com">Atilla</a></p>
   <nav class="legal" aria-label="Legal">
     <a href="privacy/">Privacy Policy</a>
     <a href="legal/">Legal Notice</a>

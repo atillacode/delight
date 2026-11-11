@@ -9,7 +9,13 @@
   --faint: #86868b;
   --size: 17px;
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  /* How far under delight.software the text starts, on every page: further on a taller screen. A phone's screen is
+     tall for its width, so there it's a little less, which keeps the opening close to the name. */
+  --under-name: clamp(48px, 12vh, 128px);
   color-scheme: light;
+}
+@media (max-width: 600px) {
+  :root { --under-name: clamp(48px, 10vh, 128px); }
 }
 
 * { box-sizing: border-box; }
@@ -42,7 +48,7 @@ p, h1, h2, ul, address { margin: 0; font-size: inherit; }
    wider. (In points rather than em, as browsers have read em in a container query differently.) The opening spans
    the page's width, so the paragraph's width comes from the page, not from its text, as a container query needs.
    Change the sentences or the size, and measure again. */
-.intro { align-self: stretch; margin-top: clamp(48px, 12vh, 128px); }
+.intro { align-self: stretch; margin-top: var(--under-name); }
 .intro > p {
   max-width: 31em;
   font-size: clamp(20px, 2.5vw, 24px); line-height: 1.4; letter-spacing: -0.01em;
@@ -91,6 +97,14 @@ p, h1, h2, ul, address { margin: 0; font-size: inherit; }
   .apps a { --draw: 1; }
   .apps a::after { transform: none; }
 }
+/* What an app is, under its name. Where it's two sentences and they don't fit on one line, the second starts a line
+   of its own rather than breaking off mid-sentence: on every phone, as Licht's two need 409 points, more than a
+   phone's widest line, 396. The line starts at 420 points, which leaves room should a browser set the type a little
+   wider. Change the sentences, and measure again. */
+.apps { container-type: inline-size; }
+@container (width < 420px) {
+  .apps p > span { display: block; }
+}
 .apps p { text-wrap: pretty; }
 
 /* The footer, smaller than the rest, across the page's width: who made it on the left, the legal pages in the
@@ -106,7 +120,7 @@ p, h1, h2, ul, address { margin: 0; font-size: inherit; }
 .site-foot .legal a:is(:hover, :focus-visible) { color: var(--quiet); --underline: var(--quiet); }
 
 /* The legal pages: the text, starting as far down as the home page's, its headings in the darkest grey. */
-.doc { max-width: 40rem; margin-top: clamp(48px, 12vh, 128px); }
+.doc { max-width: 40rem; margin-top: var(--under-name); }
 .doc h1, .doc h2 { font-weight: 600; color: var(--ink); }
 .doc h2 { margin-top: 2em; }
 .doc .updated { color: var(--faint); }
